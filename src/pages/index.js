@@ -38,8 +38,7 @@ export default function Home({ data }) {
 export async function getServerSideProps() {
   const url =
     "https://api.airtable.com/v0/appr0xSKd3TeDCKhI/tblbyU6xGfJKyCWgt/";
-  const token =
-    "patuYSb1TiUfIJZ6d.2df1b08d28aebc0caa42fd9c630eabad2601a2b1a0135887a9f4ad2e1d50355a";
+  const token = process.env.TOKEN;
 
   const response = await fetch(url, {
     headers: {

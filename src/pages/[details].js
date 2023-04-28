@@ -1,7 +1,6 @@
 import React from "react";
 
 function Details({ data }) {
-  console.log(data);
   let lines = [
     data.fields["How to become a contributor in this program?"].split("\n"),
     data.fields["Important timeline for the program"].split("\n"),
@@ -62,42 +61,12 @@ function Details({ data }) {
 
 export default Details;
 
-export async function getStaticPaths() {
-  const url =
-    "https://api.airtable.com/v0/appr0xSKd3TeDCKhI/tblbyU6xGfJKyCWgt/";
-  const token =
-    "patuYSb1TiUfIJZ6d.2df1b08d28aebc0caa42fd9c630eabad2601a2b1a0135887a9f4ad2e1d50355a";
-
-  const response = await fetch(url, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  const data = await response.json();
-
-  const allPaths = data.records.map((record) => {
-    return {
-      params: {
-        details: record.id,
-      },
-    };
-  });
-
-  console.log(allPaths);
-
-  return {
-    paths: allPaths,
-    fallback: false,
-  };
-}
-
-export async function getStaticProps(context) {
-  const id = context.params.details;
+export async function getServerSideProps(context) {
+  const id = context.query.details;
 
   const url =
     "https://api.airtable.com/v0/appr0xSKd3TeDCKhI/tblbyU6xGfJKyCWgt/";
-  const token =
-    "patuYSb1TiUfIJZ6d.2df1b08d28aebc0caa42fd9c630eabad2601a2b1a0135887a9f4ad2e1d50355a";
+  const token = process.env.TOKEN;
 
   const response = await fetch(url, {
     headers: {
@@ -112,6 +81,5 @@ export async function getStaticProps(context) {
     props: {
       data: info[0],
     },
-    revalidate: 10,
   };
 }
