@@ -37,7 +37,7 @@ export default function Home({ data }) {
 
 export async function getServerSideProps() {
   const url =
-    "https://api.airtable.com/v0/appr0xSKd3TeDCKhI/tblbyU6xGfJKyCWgt/";
+    "https://api.airtable.com/v0/appTeV1ALbXz6aYeh/tblFZaXPBU2yic4Sn/";
   const token = process.env.TOKEN;
 
   const response = await fetch(url, {
@@ -46,6 +46,7 @@ export async function getServerSideProps() {
     },
   });
   const data = await response.json();
+  console.log(data.records);
   const approveData = data.records.filter(
     (data) => data.fields.Status == "Approved"
   );

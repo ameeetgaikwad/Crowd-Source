@@ -2,8 +2,10 @@ import React from "react";
 
 function Details({ data }) {
   let lines = [
-    data.fields["How to become a contributor in this program?"].split("\n"),
-    data.fields["Important timeline for the program"].split("\n"),
+    data.fields["How to become a contributor in this organisation?"].split(
+      "\n"
+    ),
+    data.fields["Important timeline for the organisation"].split("\n"),
   ];
   let paragraph = lines[0].map((line, index) => (
     <span key={index}>
@@ -22,14 +24,16 @@ function Details({ data }) {
       <div className="max-w-6xl mb-5 w-15 mr-3 ml-3 rounded overflow-hidden shadow-lg">
         <img
           className="max-w-md w-40 px-6"
-          src={data.fields?.["Logo of the program"]?.[0]?.thumbnails.large.url}
+          src={
+            data.fields?.["Logo of the organisation"]?.[0]?.thumbnails.large.url
+          }
           alt="Program image"
         />
 
         <div className="px-6 py-4 mt-6">
           <div className="font-bold text-xl mb-2">
             <a href={data.fields["Website of the program"]} target="_blank">
-              {data.fields["Name of the program"]}
+              {data.fields["Name of the organisation"]}
             </a>
           </div>
           <p className="text-gray-700 text-base px-1">
@@ -65,7 +69,7 @@ export async function getServerSideProps(context) {
   const id = context.query.details;
 
   const url =
-    "https://api.airtable.com/v0/appr0xSKd3TeDCKhI/tblbyU6xGfJKyCWgt/";
+    "https://api.airtable.com/v0/appTeV1ALbXz6aYeh/tblFZaXPBU2yic4Sn/";
   const token = process.env.TOKEN;
 
   const response = await fetch(url, {
